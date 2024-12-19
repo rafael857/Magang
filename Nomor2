@@ -1,0 +1,15 @@
+#masukan parameter untuk di input
+jam_kerja = float(input("Masukkan jumlah jam kerja: "))
+tarif_per_jam = float(input("Masukkan tarif per jam: "))
+
+#hitung gaji karyawan
+if jam_kerja > 40:
+    jam_lembur = jam_kerja - 40
+    gaji_lembur = jam_lembur * tarif_per_jam * 1.5
+    gaji_normal = 40 * tarif_per_jam
+    total_gaji = gaji_normal + gaji_lembur
+else:
+    total_gaji = jam_kerja * tarif_per_jam
+
+#tampil hasil gaji karyawan
+print(f"Total gaji karyawan: Rp{total_gaji:.2f}")
