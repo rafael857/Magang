@@ -1,0 +1,17 @@
+SELECT * FROM tabel_mahasiswa
+WHERE Umur BETWEEN 20 AND 25
+LIMIT 5;
+
+
+SELECT * FROM tabel_mahasiswa 
+WHERE jurusan 
+LIKE 'Teknik informatika';
+
+UPDATE tabel_mahasiswa
+SET alamat = 'JL. Raya  No. 5'
+WHERE NIM = 123456;
+
+
+SELECT Mata_kuliah, Nilai
+FROM tabel_mata_kuliah
+WHERE Nilai > 70;
