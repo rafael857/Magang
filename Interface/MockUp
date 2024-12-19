@@ -1,0 +1,192 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Row(
+                children: [
+                  Image.network(
+                    'https://via.placeholder.com/50',
+                    height: 40,
+                  ),
+                  SizedBox(width: 10),
+                  Text('CARTRIDGE KINGS', style: TextStyle(color: Colors.black)),
+                ],
+              ),
+              Row(
+                children: [
+                  _buildMenuItem('Home'),
+                  _buildMenuItem('Ink Cartridges'),
+                  _buildMenuItem('Toner Cartridges'),
+                  _buildMenuItem('Contact Us'),
+                  _buildMenuItem('Login / Register'),
+                ],
+              )
+            ],
+          ),
+          backgroundColor: Colors.white,
+          elevation: 1,
+        ),
+        body: Column(
+          children: [
+            Stack(
+              children: [
+                Container(
+                  height: 300,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          'https://via.placeholder.com/1200x300'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 100.0),
+                    child: Text(
+                      'FIND THE RIGHT CARTRIDGES FOR YOUR PRINTER',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      _buildDropdown('1. Printer Brand'),
+                      _buildDropdown('2. Printer Series'),
+                      _buildDropdown('3. Printer Model'),
+                      ElevatedButton(
+                        onPressed: () {},
+                        child: Text('Find Cartridges'),
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.blue,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: GridView.count(
+                  crossAxisCount: 2,
+                  mainAxisSpacing: 16,
+                  crossAxisSpacing: 16,
+                  children: [
+                    _buildProductCard(
+                      'HP 62 Black Ink Cartridge',
+                      '\$9.49',
+                      'https://via.placeholder.com/150',
+                    ),
+                    _buildProductCard(
+                      'Canon MF-3110 Toner',
+                      '\$36.45',
+                      'https://via.placeholder.com/150',
+                    ),
+                    _buildProductCard(
+                      'HP 62 Black Ink Cartridge',
+                      '\$5.99',
+                      'https://via.placeholder.com/150',
+                      discounted: true,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMenuItem(String text) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      child: Text(
+        text,
+        style: TextStyle(color: Colors.black),
+      ),
+    );
+  }
+
+  Widget _buildDropdown(String label) {
+    return DropdownButton<String>(
+      hint: Text(label),
+      items: <String>[].map((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+      onChanged: (_) {},
+    );
+  }
+
+  Widget _buildProductCard(String title, String price, String imageUrl,
+      {bool discounted = false}) {
+    return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      elevation: 4,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.network(imageUrl, height: 100),
+          SizedBox(height: 8),
+          Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+          ),
+          SizedBox(height: 4),
+          Text(
+            discounted ? '\$9.49 $price' : price,
+            style: TextStyle(
+              fontSize: 14,
+              color: discounted ? Colors.red : Colors.black,
+              decoration:
+              discounted ? TextDecoration.lineThrough : TextDecoration.none,
+            ),
+          ),
+          SizedBox(height: 8),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Add to Cart'),
+            style: ElevatedButton.styleFrom(primary: Colors.green),
+          ),
+        ],
+      ),
+    );
+  }
+}
